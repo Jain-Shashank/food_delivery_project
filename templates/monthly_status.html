@@ -1,0 +1,146 @@
+<!-- food_delivery_app/templates/monthly_status.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Monthly Status</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <h1 class="heading">Monthly Status</h1>
+    <div class="status-box">
+        {% if error.error %}
+        
+        <h1 class="pending">{{ error.error }}</h1>
+        {% else %}
+        <table border=True>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Breakfast</th>
+                    <th>Lunch</th>
+                    <th>Dinner</th>
+                    <th>Fine</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for monthly_status in monthly_statuses %}
+                    <tr>
+                        <td class="date"
+                        >
+                            {{ monthly_status.date }}
+                        </td>
+                        <td class="{% if monthly_status.opt_ins.breakfast == "Delivered" %}delivered{% elif monthly_status.opt_ins.breakfast == "Canceled" %}canceled{% else %}pending{% endif %}"
+                        >
+                            {{ monthly_status.opt_ins.breakfast }}
+                        </td>
+                        <td class="{% if monthly_status.opt_ins.lunch == "Delivered" %}delivered{% elif monthly_status.opt_ins.lunch == "Canceled" %}canceled{% else %}pending{% endif %}"
+                        >
+                        {{ monthly_status.opt_ins.lunch }}
+                        </td>
+                        <td class="{% if monthly_status.opt_ins.dinner == "Delivered" %}delivered{% elif monthly_status.opt_ins.dinner == "Canceled" %}canceled{% else %}pending {% endif %}"
+                        >
+                            {{ monthly_status.opt_ins.dinner }}
+                        </td>
+                        <td class="{% if monthly_status.fine != 0 %}pending{% else %}delivered{% endif %}"
+                        >
+                            {{ monthly_status.fine }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="background-color: black; color: white;">Total Fine</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="background-color: red;">{{ monthly_fine }}</td>
+                </tr>
+            </tbody>
+            {% endif %}
+    </div>
+
+</body>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+
+.heading  {
+    justify-content: center !important;
+    display: flex;
+}
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+.date {
+    background-color: grey;
+    color: white; 
+}
+.delivered {
+    background-color: #4CAF50; 
+    color: white;
+}
+
+.canceled {
+    background-color: blue;
+    color: white; 
+}
+
+.pending {
+    background-color: red;
+    color: white;
+}
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+
+  
+  /* Responsive styling */
+  @media screen and (max-width: 600px) {
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  
+    th {
+      text-align: center;
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+  }
+
+
+</html>

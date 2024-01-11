@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details</title>
+</head>
+<body>
+    {% if error.error %}
+        <h1 class="pending">{{ error.error }}</h1>
+    {% else %}
+    <h1>User Details</h1>
+    <p>Name: {{ user.f_name }} {{ user.l_name }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    <p>Email: {{ user.email }}</p>
+    <!-- Add other user details as needed -->
+    {% endif %}
+</body>
+</html>
